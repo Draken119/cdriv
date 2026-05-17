@@ -1,18 +1,18 @@
-# Instalação
+# Installation
 
-## Via PyPI (recomendado)
+## Via PyPI (recommended)
 
 ```bash
 pip install cdriv
 ```
 
-Atualizar para a versão mais recente:
+Upgrade to the latest version:
 
 ```bash
 pip install --upgrade cdriv
 ```
 
-## Via fonte
+## From Source
 
 ```bash
 git clone https://github.com/Draken119/cdriv.git
@@ -20,20 +20,20 @@ cd cdriv
 pip install .
 ```
 
-## Verificar instalação
+## Verify Installation
 
 ```bash
 pip show cdriv
 ```
 
-Deve exibir algo como:
+Expected output:
 
 ```
 Name: cdriv
 Version: 1.0.2
-Summary: Controle o Chromium via ChromeDriver no Termux...
+Summary: Control Chromium via ChromeDriver on Termux...
 ```
 
-## Próximo passo
+## Next Step
 
-Veja os [Pré-requisitos](prerequisites.md) para instalar o ChromeDriver e Chromium.
+Check the [Prerequisites](prerequisites.md) to install ChromeDriver and Chromium.

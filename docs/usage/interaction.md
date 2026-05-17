@@ -1,99 +1,98 @@
-# Interação com Elementos
+# Element Interaction
 
-Métodos para interagir com elementos da página via seletores CSS.
+Methods for interacting with page elements via CSS selectors.
 
 ## `click(selector)`
 
-Clica em um elemento da página.
+Clicks on a page element.
 
 ```python
-driver.click("button#enviar")
-driver.click("a.link-login")
+driver.click("button#submit")
+driver.click("a.login-link")
 driver.click(".btn-primary")
 driver.click("#menu > li:first-child a")
 ```
 
 ## `fill(selector, value)`
 
-Preenche um campo de input com um valor. Dispara eventos `input` e `change`
-automaticamente.
+Fills an input field with a value. Fires `input` and `change` events automatically.
 
 ```python
-driver.fill("input#email", "usuario@email.com")
-driver.fill("textarea#mensagem", "Olá, mundo!")
-driver.fill("input[type='search']", "termo de busca")
+driver.fill("input#email", "user@email.com")
+driver.fill("textarea#message", "Hello, world!")
+driver.fill("input[type='search']", "search term")
 ```
 
 ## `get_text(selector)`
 
-Retorna o texto visível de um elemento.
+Returns the visible text of an element.
 
 ```python
-nome = driver.get_text("h1.titulo")
-preco = driver.get_text(".produto-preco")
-descricao = driver.get_text("#descricao")
+name = driver.get_text("h1.title")
+price = driver.get_text(".product-price")
+description = driver.get_text("#description")
 ```
 
 ## `get_attribute(selector, attr)`
 
-Retorna o valor de um atributo de um elemento.
+Returns the value of an element's attribute.
 
 ```python
 href = driver.get_attribute("a.link", "href")
-src = driver.get_attribute("img#foto", "src")
+src = driver.get_attribute("img#photo", "src")
 alt = driver.get_attribute("img.logo", "alt")
 ```
 
 ## `get_all_texts(selector)`
 
-Retorna uma lista com o texto de **todos** os elementos que correspondem ao seletor.
+Returns a list of the **inner text** of **all** elements matching the selector.
 
 ```python
-itens = driver.get_all_texts("li.item")
+items = driver.get_all_texts("li.item")
 # ["Item 1", "Item 2", "Item 3"]
 
-precos = driver.get_all_texts(".produto-preco")
-# ["R$ 10,00", "R$ 25,50", "R$ 99,90"]
+prices = driver.get_all_texts(".product-price")
+# ["$10.00", "$25.50", "$99.90"]
 ```
 
 ## `get_all_attributes(selector, attr)`
 
-Retorna uma lista com valores de atributos de múltiplos elementos.
+Returns a list of attribute values from multiple elements.
 
 ```python
 links = driver.get_all_attributes("a", "href")
 # ["https://...", "https://...", ...]
 
-imgs = driver.get_all_attributes("img", "src")
-# ["foto1.jpg", "foto2.jpg", ...]
+images = driver.get_all_attributes("img", "src")
+# ["photo1.jpg", "photo2.jpg", ...]
 ```
 
 ## `select_option(selector, value)`
 
-Seleciona uma opção em um elemento `<select>`.
+Selects an option in a `<select>` element.
 
 ```python
-driver.select_option("select#pais", "BR")
-driver.select_option("select#categoria", "tecnologia")
+driver.select_option("select#country", "BR")
+driver.select_option("select#category", "technology")
 ```
 
-## Exemplo completo
+## Complete Example
 
 ```python
 from cdriv import CDriv
 
 with CDriv() as driver:
     driver.new_session()
-    driver.navigate("https://site.com/produtos")
+    driver.navigate("https://site.com/products")
 
-    # Pega todos os produtos
-    nomes = driver.get_all_texts(".produto-nome")
-    precos = driver.get_all_texts(".produto-preco")
-    links = driver.get_all_attributes(".produto-link", "href")
+    # Get all products
+    names = driver.get_all_texts(".product-name")
+    prices = driver.get_all_texts(".product-price")
+    links = driver.get_all_attributes(".product-link", "href")
 
-    for nome, preco, link in zip(nomes, precos, links):
-        print(f"{nome}: {preco} -> {link}")
+    for name, price, link in zip(names, prices, links):
+        print(f"{name}: {price} -> {link}")
 
-    # Clica no primeiro produto
-    driver.click(".produto-link:first-child")
+    # Click on the first product
+    driver.click(".product-link:first-child")
 ```

@@ -1,38 +1,38 @@
 # JavaScript
 
-Execute JavaScript arbitrário na página.
+Execute arbitrary JavaScript on the page.
 
 ## `execute_script(script, *args)`
 
-Executa JavaScript na página e retorna o resultado.
+Executes JavaScript in the page context and returns the result.
 
 ```python
-# Ler dados
-titulo = driver.execute_script("return document.title")
-texto = driver.execute_script("return document.querySelector('.x').innerText")
+# Read data
+title = driver.execute_script("return document.title")
+text = driver.execute_script("return document.querySelector('.x').innerText")
 token = driver.execute_script("return localStorage.getItem('token')")
 
-# Manipular a página
+# Manipulate the page
 driver.execute_script("document.querySelector('#btn').click()")
 driver.execute_script("window.scrollTo(0, document.body.scrollHeight)")
 
-# Com argumentos
-driver.execute_script("arguments[0].scrollIntoView()", elemento)
+# With arguments
+driver.execute_script("arguments[0].scrollIntoView()", element)
 ```
 
-## Casos de uso comuns
+## Common Use Cases
 
-### Extrair dados de uma tabela
+### Extract Table Data
 
 ```python
-dados = driver.execute_script("""
+data = driver.execute_script("""
     return Array.from(document.querySelectorAll('table tr')).map(row =>
         Array.from(row.querySelectorAll('td')).map(td => td.innerText)
     )
 """)
 ```
 
-### Manipular atributos
+### Manipulate Attributes
 
 ```python
 driver.execute_script("""
@@ -42,7 +42,7 @@ driver.execute_script("""
 """)
 ```
 
-### Simular eventos
+### Simulate Events
 
 ```python
 driver.execute_script("""
@@ -52,7 +52,7 @@ driver.execute_script("""
 """)
 ```
 
-### Monitorar rede (avançado)
+### Network Monitoring (advanced)
 
 ```python
 driver.execute_script("""

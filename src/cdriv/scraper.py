@@ -1,8 +1,8 @@
 """
-CDriv — Lib para controlar Chromium via ChromeDriver no Termux
-Alternativa ao Playwright/Selenium (não funcionam em android/aarch64).
+CDriv — Control Chromium via ChromeDriver on Termux
+Alternative to Playwright/Selenium (do not work on android/aarch64).
 
-Uso:
+Usage:
     from cdriv import CDriv
 
     scraper = CDriv()

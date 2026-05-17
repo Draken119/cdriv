@@ -1,38 +1,38 @@
-# Automação de Formulário
+# Form Automation
 
-Exemplo de preenchimento e envio automático de formulários.
+Example of filling out and submitting forms automatically.
 
 ```python
 from cdriv import CDriv
 
 with CDriv() as driver:
     driver.new_session()
-    driver.navigate("https://site.com/cadastro")
+    driver.navigate("https://site.com/register")
 
-    # Aguarda o formulário carregar
-    driver.wait_for_element("form#cadastro", timeout=10)
+    # Wait for the form to load
+    driver.wait_for_element("form#registration", timeout=10)
 
-    # Preenche campos
-    driver.fill("input#nome", "João Silva")
-    driver.fill("input#email", "joao@email.com")
-    driver.fill("input#telefone", "(11) 99999-8888")
-    driver.fill("textarea#mensagem", "Olá, gostaria de mais informações.")
+    # Fill in fields
+    driver.fill("input#name", "John Doe")
+    driver.fill("input#email", "john@email.com")
+    driver.fill("input#phone", "+1 (555) 123-4567")
+    driver.fill("textarea#message", "Hello, I would like more information.")
 
-    # Seleciona opções
-    driver.select_option("select#pais", "BR")
-    driver.select_option("select#categoria", "suporte")
+    # Select options
+    driver.select_option("select#country", "US")
+    driver.select_option("select#category", "support")
 
-    # Marca checkbox
-    driver.click("input#aceito-termos")
+    # Check terms
+    driver.click("input#accept-terms")
 
-    # Envia o formulário
+    # Submit the form
     driver.click("button[type='submit']")
 
-    # Aguarda confirmação
-    if driver.wait_for_text("Cadastro realizado", timeout=15):
-        print("Formulário enviado com sucesso!")
-        print(driver.get_text(".mensagem-sucesso"))
+    # Wait for confirmation
+    if driver.wait_for_text("Registration successful", timeout=15):
+        print("Form submitted successfully!")
+        print(driver.get_text(".success-message"))
     else:
-        print("Erro ao enviar formulário")
-        driver.screenshot("erro_form.png")
+        print("Error submitting form")
+        driver.screenshot("form_error.png")
 ```

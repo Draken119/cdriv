@@ -1,6 +1,6 @@
 # Login + API
 
-Exemplo real de login em um site e reutilização dos cookies para chamadas de API.
+Real-world example of logging into a website and reusing cookies for API calls.
 
 ```python
 from cdriv import CDriv
@@ -10,26 +10,26 @@ with CDriv() as driver:
     driver.new_session()
     driver.navigate("https://site.com/login")
 
-    # Preenche formulário de login
-    driver.fill("input#username", "meu_login")
-    driver.fill("input#password", "minha_senha")
+    # Fill in login form
+    driver.fill("input#username", "my_user")
+    driver.fill("input#password", "my_password")
     driver.click("button[type='submit']")
 
-    # Aguarda redirecionamento
+    # Wait for redirect
     driver.wait_for_navigation()
 
-    # Verifica se login foi bem-sucedido
+    # Verify login was successful
     if driver.wait_for_element(".dashboard", timeout=5):
-        print("Login realizado!")
+        print("Login successful!")
 
-        # Extrai cookies e cria sessão autenticada
+        # Extract cookies and create authenticated session
         session = requests.Session()
         session.cookies.update(driver.get_cookies_dict())
 
-        # Faz chamadas autenticadas
-        dados = session.get("https://site.com/api/dados").json()
-        print(dados)
+        # Make authenticated API calls
+        data = session.get("https://site.com/api/data").json()
+        print(data)
     else:
-        print("Falha no login")
-        driver.screenshot("erro_login.png")
+        print("Login failed")
+        driver.screenshot("login_error.png")
 ```

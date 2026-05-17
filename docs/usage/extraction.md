@@ -1,48 +1,48 @@
-# Extração de Dados
+# Data Extraction
 
-Métodos para extrair informações da página.
+Methods for extracting information from the page.
 
 ## `get_page_source()`
 
-Retorna o HTML **completo** da página como string.
+Returns the **full** page HTML as a string.
 
 ```python
 html = driver.get_page_source()
 
-# Salvar em arquivo
-with open("pagina.html", "w", encoding="utf-8") as f:
+# Save to file
+with open("page.html", "w", encoding="utf-8") as f:
     f.write(html)
 
-# Buscar com BeautifulSoup
+# Parse with BeautifulSoup
 from bs4 import BeautifulSoup
 soup = BeautifulSoup(html, "html.parser")
 ```
 
-!!! tip "BeautifulSoup é opcional"
-    O `cdriv` não depende do BeautifulSoup. Instale separadamente se precisar:
+!!! tip "BeautifulSoup is optional"
+    `cdriv` does not depend on BeautifulSoup. Install separately if needed:
     `pip install beautifulsoup4`
 
 ## `get_title()`
 
-Retorna o título da página (conteúdo da tag `<title>`).
+Returns the page title (content of the `<title>` tag).
 
 ```python
-titulo = driver.get_title()
-print(f"Página: {titulo}")
+title = driver.get_title()
+print(f"Page: {title}")
 ```
 
-## Exemplo
+## Example
 
 ```python
 from cdriv import CDriv
 
 with CDriv() as driver:
     driver.new_session()
-    driver.navigate("https://exemplo.com")
+    driver.navigate("https://example.com")
 
     html = driver.get_page_source()
-    titulo = driver.get_title()
+    title = driver.get_title()
 
-    print(f"Título: {titulo}")
-    print(f"Tamanho do HTML: {len(html)} caracteres")
+    print(f"Title: {title}")
+    print(f"HTML size: {len(html)} characters")
 ```

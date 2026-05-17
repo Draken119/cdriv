@@ -1,4 +1,4 @@
-# Pré-requisitos
+# Prerequisites
 
 ## Termux (Android)
 
@@ -7,9 +7,9 @@ pkg update
 pkg install chromium-browser chromedriver
 ```
 
-!!! tip "Versões compatíveis"
-    No Termux, é essencial que `chromium-browser` e `chromedriver` sejam da **mesma versão**.
-    Sempre atualize ambos juntos:
+!!! tip "Version Compatibility"
+    On Termux, `chromium-browser` and `chromedriver` **must be the same version**.
+    Always upgrade both together:
 
     ```bash
     pkg upgrade chromium-browser chromedriver
@@ -22,22 +22,22 @@ sudo apt update
 sudo apt install chromium-browser chromium-chromedriver
 ```
 
-## Verificar instalação
+## Verify Binaries
 
-Confirme que os binários estão disponíveis:
+Confirm both binaries are available:
 
 ```bash
 which chromedriver
 which chromium-browser
 ```
 
-Verifique as versões:
+Check versions:
 
 ```bash
 chromedriver --version
 chromium-browser --version
 ```
 
-## Próximo passo
+## Next Step
 
-Agora veja os [Primeiros Passos](usage/quickstart.md) para começar a usar.
+Now head over to the [Quickstart Guide](usage/quickstart.md) to start using cdriv.

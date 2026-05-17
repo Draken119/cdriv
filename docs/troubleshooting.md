@@ -1,22 +1,22 @@
-# Solução de Problemas
+# Troubleshooting
 
-## ChromeDriver não inicia
+## ChromeDriver Won't Start
 
-Verifique se os binários estão instalados:
+Verify that the required binaries are installed:
 
 ```bash
 which chromedriver
 which chromium-browser
 ```
 
-Verifique as versões:
+Check versions:
 
 ```bash
 chromedriver --version
 chromium-browser --version
 ```
 
-Se não estiverem instalados:
+If not installed:
 
 === "Termux"
     ```bash
@@ -27,54 +27,48 @@ Se não estiverem instalados:
     sudo apt install chromium-browser chromium-chromedriver
     ```
 
-## Sessão não cria / navegador não abre
+## Session Creation Fails
 
-No Termux, é essencial que os pacotes `chromium-browser` e `chromedriver` sejam
-da **mesma versão**. Atualize ambos:
+On Termux, `chromium-browser` and `chromedriver` **must be the same version**.
+Upgrade both:
 
 ```bash
 pkg upgrade chromium-browser chromedriver
 ```
 
-## Porta ocupada
+## Port Already in Use
 
-Se a porta 9515 estiver ocupada, use uma porta diferente:
+If port 9515 is occupied, use a different port:
 
 ```python
 driver = CDriv(port=9516)
 ```
 
-## Erro de permissão (sandbox)
+## Sandbox Permission Errors
 
-O `CDriv` já inicia com `--no-sandbox` por padrão, que é necessário no Termux
-e em containers. Se ainda assim tiver erro, confirme que o chromium foi
-instalado corretamente.
+`CDriv` starts with `--no-sandbox` by default, which is required on Termux
+and containers. If you still get errors, confirm chromium was installed correctly.
 
-## Timeout ao navegar
+## 5 Common Errors
 
-Páginas muito lentas podem exceder o timeout padrão. Aumente o timeout
-explicitamente ou use `wait_for_navigation()`.
+| Error | Cause | Solution |
+|-------|-------|----------|
+| `ChromeDriver did not start in time` | chromedriver not found or port busy | Install chromedriver, change port |
+| `No active session` | Forgot to call `new_session()` | Call `driver.new_session()` before navigating |
+| `Failed to create session` | Chromium not found or version mismatch | Install chromium-browser or provide the path |
+| Timeout | Slow page | Increase timeout or use `wait_for_navigation()` |
+| Connection error | ChromeDriver not running | Call `driver.start()` or use `with CDriv()` |
 
-## 5 erros comuns
-
-| Erro | Causa | Solução |
-|------|-------|---------|
-| `ChromeDriver não iniciou a tempo` | chromedriver não encontrado ou porta ocupada | Instale o chromedriver, troque a porta |
-| `Nenhuma sessão ativa` | Esqueceu de chamar `new_session()` | Chame `driver.new_session()` antes de navegar |
-| `Failed to create session` | Chromium não encontrado ou versão incompatível | Instale chromium-browser ou informe o caminho |
-| Timeout | Página lenta | Aumente timeout ou use `wait_for_navigation()` |
-| Erro de conexão | ChromeDriver não está rodando | Chame `driver.start()` ou use `with CDriv()` |
-
-## Logs e depuração
+## Debugging
 
 ```python
 import logging
 logging.basicConfig(level=logging.DEBUG)
 
-# Capture screenshot em caso de erro
+# Capture screenshot on error
 try:
     driver.navigate("https://site.com")
 except Exception as e:
-    driver.screenshot("erro.png")
-    print(f"Erro: {e}")
+    driver.screenshot("error.png")
+    print(f"Error: {e}")
 ```

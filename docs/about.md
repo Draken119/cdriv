@@ -1,26 +1,26 @@
-# Sobre
+# About
 
-## O que é?
+## What is cdriv?
 
-**cdriv** é uma biblioteca Python para controlar o Chromium via ChromeDriver
-no **Termux** (Android aarch64). Ela foi criada porque o **Playwright** e
-**Selenium** simplesmente **não funcionam** em Android/aarch64.
+**cdriv** is a Python library for controlling Chromium via ChromeDriver on
+**Termux** (Android aarch64). It was created because **Playwright** and
+**Selenium** simply **do not work** on Android aarch64.
 
-Em vez de depender de frameworks pesados que exigem contêineres ou runtime
-específicos, o `cdriv` se comunica diretamente com o ChromeDriver via
-protocolo HTTP WebDriver. O resultado é uma lib leve, que depende apenas do
-pacote `requests`.
+Instead of relying on heavy frameworks that require containers or specific
+runtimes, `cdriv` communicates directly with ChromeDriver through the HTTP
+WebDriver protocol. The result is a lightweight library with a single
+dependency: `requests`.
 
-## Por que cdriv?
+## Why cdriv?
 
-- :material-cellphone: **Funciona no Termux** — ao contrário de Playwright e Selenium
-- :material-feather: **Leve** — única dependência: `requests`
-- :material-bolt: **Simples** — API em português, métodos diretos
-- :material-test-tube: **Testado** — usado em produção no Termux
+- :material-cellphone: **Works on Termux** — unlike Playwright and Selenium
+- :material-feather: **Lightweight** — single dependency: `requests`
+- :material-bolt: **Simple** — clean, descriptive API
+- :material-test-tube: **Production-tested** — actively used on Termux
 
-## Licença
+## License
 
-MIT — use, modifique, distribua à vontade.
+MIT — use, modify, and distribute freely.
 
 ## Links
 

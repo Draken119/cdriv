@@ -1,51 +1,50 @@
-# Monitoramento de Preços
+# Price Monitoring
 
-Exemplo de script para monitorar preços de produtos.
+Example script for monitoring product prices over time.
 
 ```python
 from cdriv import CDriv
 import json
 from datetime import datetime
 
-URL_PRODUTO = "https://site.com/produto/123"
-ARQUIVO_HISTORICO = "historico_precos.json"
+PRODUCT_URL = "https://site.com/product/123"
+HISTORY_FILE = "price_history.json"
 
 with CDriv() as driver:
     driver.new_session()
-    driver.navigate(URL_PRODUTO)
-    driver.wait_for_element(".preco", timeout=10)
+    driver.navigate(PRODUCT_URL)
+    driver.wait_for_element(".price", timeout=10)
 
-    # Extrai dados do produto
-    nome = driver.get_text("h1.produto-nome")
-    preco_texto = driver.get_text(".preco-atual")
-    disponivel = driver.get_text(".estoque")
+    # Extract product data
+    name = driver.get_text("h1.product-name")
+    price_text = driver.get_text(".current-price")
+    stock = driver.get_text(".stock-status")
 
-    # Converte preço (ex: "R$ 1.234,56" -> 1234.56)
-    preco = float(
-        preco_texto.replace("R$", "")
-        .replace(".", "")
-        .replace(",", ".")
+    # Parse price (e.g., "$1,234.56" -> 1234.56)
+    price = float(
+        price_text.replace("$", "")
+        .replace(",", "")
         .strip()
     )
 
-    # Registro
-    registro = {
-        "data": datetime.now().isoformat(),
-        "produto": nome,
-        "preco": preco,
-        "disponivel": "indisponível" not in disponivel.lower(),
+    # Create record
+    record = {
+        "date": datetime.now().isoformat(),
+        "product": name,
+        "price": price,
+        "in_stock": "out of stock" not in stock.lower(),
     }
 
-    print(f"{registro['produto']}: R$ {preco:.2f}")
+    print(f"{record['product']}: ${price:.2f}")
 
-    # Salva histórico
+    # Save history
     try:
-        with open(ARQUIVO_HISTORICO) as f:
-            historico = json.load(f)
+        with open(HISTORY_FILE) as f:
+            history = json.load(f)
     except FileNotFoundError:
-        historico = []
+        history = []
 
-    historico.append(registro)
-    with open(ARQUIVO_HISTORICO, "w") as f:
-        json.dump(historico, f, indent=2, ensure_ascii=False)
+    history.append(record)
+    with open(HISTORY_FILE, "w") as f:
+        json.dump(history, f, indent=2)
 ```

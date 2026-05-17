@@ -1,62 +1,62 @@
-# Waits (Esperas)
+# Waits
 
-Aguarde condições específicas na página antes de prosseguir.
+Wait for specific conditions on the page before proceeding.
 
 ## `wait_for_element(selector, timeout=10, interval=0.3)`
 
-Aguarda até que um elemento apareça no DOM.
+Waits until an element appears in the DOM.
 
 ```python
-if driver.wait_for_element("#carregou", timeout=15):
-    print("Elemento encontrado!")
+if driver.wait_for_element("#loaded", timeout=15):
+    print("Element found!")
 else:
-    print("Timeout — elemento não apareceu")
+    print("Timeout — element did not appear")
 ```
 
-### Uso típico
+### Typical Usage
 
 ```python
-driver.navigate("https://site.com/produtos")
+driver.navigate("https://site.com/products")
 
-# Aguarda a lista carregar
-if driver.wait_for_element(".produto-item", timeout=10):
-    precos = driver.get_all_texts(".produto-preco")
-    print(precos)
+# Wait for the list to load
+if driver.wait_for_element(".product-item", timeout=10):
+    prices = driver.get_all_texts(".product-price")
+    print(prices)
 else:
-    print("Lista de produtos não carregou")
+    print("Product list did not load")
 ```
 
 ## `wait_for_text(text, timeout=10, interval=0.5)`
 
-Aguarda até que um texto apareça na página.
+Waits until specific text appears on the page.
 
 ```python
-# Aguarda confirmação
-if driver.wait_for_text("Pedido confirmado", timeout=20):
-    print("Pedido confirmado com sucesso!")
+# Wait for confirmation
+if driver.wait_for_text("Order confirmed", timeout=20):
+    print("Order confirmed successfully!")
 else:
-    print("Timeout na confirmação")
+    print("Confirmation timeout")
 ```
 
 ## `wait_for_navigation(timeout=10)`
 
-Aguarda a página terminar de carregar (`document.readyState === 'complete'`).
+Waits for the page to finish loading (`document.readyState === 'complete'`).
 
 ```python
 driver.navigate("https://site.com")
 driver.wait_for_navigation(timeout=15)
-print("Página carregada!")
+print("Page loaded!")
 ```
 
 ## `sleep(seconds)`
 
-Pausa por N segundos. Mesmo que `time.sleep()`, mas mais legível no fluxo.
+Pauses for N seconds. Same as `time.sleep()`, but more readable in flow.
 
 ```python
-driver.sleep(2)  # Aguarda 2 segundos
+driver.sleep(2)  # Wait 2 seconds
 ```
 
-## Exemplo combinado
+## Combined Example
 
 ```python
 from cdriv import CDriv
@@ -69,11 +69,11 @@ with CDriv() as driver:
     driver.fill("input#password", "123456")
     driver.click("button[type='submit']")
 
-    # Aguarda o dashboard carregar
+    # Wait for dashboard to load
     if driver.wait_for_element(".dashboard", timeout=10):
-        driver.wait_for_text("Bem-vindo", timeout=5)
-        print("Login realizado com sucesso!")
+        driver.wait_for_text("Welcome", timeout=5)
+        print("Login successful!")
     else:
-        driver.screenshot("erro_login.png")
-        print("Falha no login")
+        driver.screenshot("login_error.png")
+        print("Login failed")
 ```

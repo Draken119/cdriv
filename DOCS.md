@@ -1,44 +1,44 @@
 # cdriv Documentation
 
-Lib Python para controlar Chromium via ChromeDriver no **Termux** (Android aarch64).
-Alternativa direta ao Playwright e Selenium, que **não funcionam** em Android/aarch64.
+Python library for controlling Chromium via ChromeDriver on **Termux** (Android aarch64).
+A direct alternative to Playwright and Selenium, which **do not work** on Android/aarch64.
 
-## Índice
+## Index
 
-- [Instalação](#instalação)
-- [Uso básico](#uso-básico)
-- [API Completa](#api-completa)
-  - [Gerenciamento do ChromeDriver](#gerenciamento-do-chromedriver)
-  - [Sessão do navegador](#sessão-do-navegador)
-  - [Navegação](#navegação)
-  - [Extração de dados](#extração-de-dados)
+- [Installation](#installation)
+- [Quick Start](#quick-start)
+- [Complete API](#complete-api)
+  - [ChromeDriver Management](#chromedriver-management)
+  - [Browser Session](#browser-session)
+  - [Navigation](#navigation)
+  - [Data Extraction](#data-extraction)
   - [Cookies](#cookies)
   - [JavaScript](#javascript)
-  - [Interação com elementos](#interação-com-elementos)
+  - [Element Interaction](#element-interaction)
   - [Scroll](#scroll)
-  - [Espera (waits)](#espera-waits)
+  - [Waits](#waits)
   - [Screenshot](#screenshot)
   - [Storage (localStorage / sessionStorage)](#storage-localstorage--sessionstorage)
-  - [Utilitários](#utilitários)
-- [Exemplos práticos](#exemplos-práticos)
-- [Solução de problemas](#solução-de-problemas)
+  - [Utilities](#utilities)
+- [Practical Examples](#practical-examples)
+- [Troubleshooting](#troubleshooting)
 
 ---
 
-## Instalação
+## Installation
 
 ```bash
 pip install cdriv
 ```
 
-### Pré-requisitos no Termux
+### Prerequisites (Termux)
 
 ```bash
 pkg update
 pkg install chromium-browser chromedriver
 ```
 
-### Pré-requisitos em outros Linux (Ubuntu/Debian)
+### Prerequisites (Ubuntu/Debian)
 
 ```bash
 sudo apt update
@@ -47,21 +47,21 @@ sudo apt install chromium-browser chromium-chromedriver
 
 ---
 
-## Uso básico
+## Quick Start
 
-### Context manager (recomendado)
+### Context Manager (recommended)
 
 ```python
 from cdriv import CDriv
 
 with CDriv() as driver:
     driver.new_session()
-    driver.navigate("https://exemplo.com")
+    driver.navigate("https://example.com")
     html = driver.get_page_source()
     print(driver.get_title())
 ```
 
-### Gerenciamento manual
+### Manual Management
 
 ```python
 from cdriv import CDriv
@@ -69,27 +69,27 @@ from cdriv import CDriv
 driver = CDriv()
 driver.start()
 driver.new_session()
-driver.navigate("https://exemplo.com")
-# ... faz o que precisa ...
+driver.navigate("https://example.com")
+# ... do what you need ...
 driver.close()
 driver.stop()
 ```
 
 ---
 
-## API Completa
+## Complete API
 
-### Gerenciamento do ChromeDriver
+### ChromeDriver Management
 
 #### `CDriv(port=9515, chromedriver_path=None, chromium_path=None)`
 
-Construtor. Inicializa o controlador.
+Constructor. Initializes the controller.
 
-| Parâmetro | Padrão | Descrição |
-|-----------|--------|-----------|
-| `port` | `9515` | Porta HTTP do ChromeDriver |
-| `chromedriver_path` | `None` (auto-detect) | Caminho do binário chromedriver |
-| `chromium_path` | `None` (auto-detect) | Caminho do binário chromium-browser |
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `port` | `9515` | ChromeDriver HTTP port |
+| `chromedriver_path` | `None` (auto-detect) | Path to chromedriver binary |
+| `chromium_path` | `None` (auto-detect) | Path to chromium-browser binary |
 
 ```python
 driver = CDriv(port=9515)
@@ -98,8 +98,8 @@ driver = CDriv(chromedriver_path="/usr/bin/chromedriver")
 
 #### `start()`
 
-Inicia o processo do ChromeDriver. Aguarda até que ele responda na porta configurada.
-Retorna `self` para encadeamento de métodos.
+Starts the ChromeDriver process. Waits until it responds on the configured port.
+Returns `self` for method chaining.
 
 ```python
 driver.start()
@@ -107,7 +107,7 @@ driver.start()
 
 #### `stop()`
 
-Para o processo do ChromeDriver. Remove o registro do `atexit`.
+Stops the ChromeDriver process. Unregisters the `atexit` handler.
 
 ```python
 driver.stop()
@@ -115,7 +115,7 @@ driver.stop()
 
 #### `restart()`
 
-Reinicia o ChromeDriver (stop + start).
+Restarts the ChromeDriver (stop + start).
 
 ```python
 driver.restart()
@@ -123,17 +123,17 @@ driver.restart()
 
 ---
 
-### Sessão do navegador
+### Browser Session
 
 #### `new_session()`
 
-Abre uma nova janela do Chromium (cria uma sessão WebDriver). Retorna o `sessionId`.
+Opens a new Chromium window (creates a WebDriver session). Returns the `sessionId`.
 
-O navegador inicia em modo **headless** com as seguintes configurações automáticas:
-- Janela 1920x1080
-- User-Agent Chrome 146 (Linux x86_64)
-- Desabilita detecção de automação
-- No-sandbox, disable-dev-shm-usage (necessário para Termux/container)
+The browser starts in **headless** mode with the following automatic settings:
+- Window size: 1920x1080
+- User-Agent: Chrome 146 (Linux x86_64)
+- Automation detection disabled
+- No-sandbox, disable-dev-shm-usage (required for Termux/containers)
 
 ```python
 session_id = driver.new_session()
@@ -141,7 +141,7 @@ session_id = driver.new_session()
 
 #### `close()`
 
-Fecha a sessão atual (fecha o navegador).
+Closes the current session (closes the browser).
 
 ```python
 driver.close()
@@ -149,15 +149,15 @@ driver.close()
 
 ---
 
-### Navegação
+### Navigation
 
-| Método | Descrição |
-|--------|-----------|
-| `navigate(url)` | Navega para uma URL |
-| `get_current_url()` | Retorna a URL atual |
-| `back()` | Volta para página anterior |
-| `forward()` | Avança para próxima página |
-| `refresh()` | Recarrega a página |
+| Method | Description |
+|--------|-------------|
+| `navigate(url)` | Navigate to a URL |
+| `get_current_url()` | Return the current URL |
+| `back()` | Go to previous page |
+| `forward()` | Go to next page |
+| `refresh()` | Reload the current page |
 
 ```python
 driver.navigate("https://site.com")
@@ -169,11 +169,11 @@ driver.refresh()
 
 ---
 
-### Extração de dados
+### Data Extraction
 
 #### `get_page_source()`
 
-Retorna o HTML **completo** da página como string.
+Returns the **full** page HTML as a string.
 
 ```python
 html = driver.get_page_source()
@@ -181,10 +181,10 @@ html = driver.get_page_source()
 
 #### `get_title()`
 
-Retorna o título da página (conteúdo da tag `<title>`).
+Returns the page title (content of the `<title>` tag).
 
 ```python
-titulo = driver.get_title()
+title = driver.get_title()
 ```
 
 ---
@@ -193,7 +193,8 @@ titulo = driver.get_title()
 
 #### `get_cookies()`
 
-Retorna a lista bruta de cookies. Cada cookie é um dicionário com as chaves: `name`, `value`, `domain`, `path`, `secure`, `httpOnly`, etc.
+Returns the raw list of cookies. Each cookie is a dictionary with keys:
+`name`, `value`, `domain`, `path`, `secure`, `httpOnly`, etc.
 
 ```python
 cookies = driver.get_cookies()
@@ -203,20 +204,20 @@ for c in cookies:
 
 #### `get_cookies_dict()`
 
-Retorna cookies como dicionário `{nome: valor}` — ideal para usar com `requests.Session()`.
+Returns cookies as `{name: value}` dictionary — ideal for use with `requests.Session()`.
 
 ```python
 import requests
 
 session = requests.Session()
 session.cookies.update(driver.get_cookies_dict())
-resp = session.get("https://site.com/api/dados")
+resp = session.get("https://site.com/api/data")
 print(resp.json())
 ```
 
 #### `add_cookie(name, value, domain=None, path="/")`
 
-Adiciona um cookie manualmente à sessão.
+Adds a cookie manually to the session.
 
 ```python
 driver.add_cookie("token", "abc123", domain=".site.com")
@@ -224,7 +225,7 @@ driver.add_cookie("token", "abc123", domain=".site.com")
 
 #### `delete_all_cookies()`
 
-Remove todos os cookies da sessão.
+Removes all cookies from the session.
 
 ```python
 driver.delete_all_cookies()
@@ -236,90 +237,89 @@ driver.delete_all_cookies()
 
 #### `execute_script(script, *args)`
 
-Executa JavaScript na página e retorna o resultado.
+Executes JavaScript on the page and returns the result.
 
 ```python
-# Ler dados da página
-titulo = driver.execute_script("return document.title")
-texto = driver.execute_script("return document.querySelector('.x').innerText")
+# Read data
+title = driver.execute_script("return document.title")
+text = driver.execute_script("return document.querySelector('.x').innerText")
 token = driver.execute_script("return localStorage.getItem('token')")
 
-# Manipular a página
+# Manipulate the page
 driver.execute_script("document.querySelector('#btn').click()")
 driver.execute_script("window.scrollTo(0, document.body.scrollHeight)")
 
-# Com argumentos
-driver.execute_script("arguments[0].scrollIntoView()", elemento)
+# With arguments
+driver.execute_script("arguments[0].scrollIntoView()", element)
 ```
 
 ---
 
-### Interação com elementos
+### Element Interaction
 
 #### `click(selector)`
 
-Clica em um elemento via seletor CSS.
+Clicks an element via CSS selector.
 
 ```python
-driver.click("button#enviar")
-driver.click("a.link-login")
+driver.click("button#submit")
+driver.click("a.login-link")
 driver.click(".btn-primary")
 ```
 
 #### `fill(selector, value)`
 
-Preenche um campo de input. Dispara eventos `input` e `change`.
+Fills an input field. Fires `input` and `change` events.
 
 ```python
-driver.fill("input#email", "usuario@email.com")
-driver.fill("textarea#mensagem", "Olá, mundo!")
+driver.fill("input#email", "user@email.com")
+driver.fill("textarea#message", "Hello, world!")
 ```
 
 #### `get_text(selector)`
 
-Retorna o texto visível de um elemento.
+Returns the visible text of an element.
 
 ```python
-nome = driver.get_text("h1.titulo")
-preco = driver.get_text(".produto-preco")
+name = driver.get_text("h1.title")
+price = driver.get_text(".product-price")
 ```
 
 #### `get_attribute(selector, attr)`
 
-Retorna o valor de um atributo de um elemento.
+Returns the value of an element attribute.
 
 ```python
 href = driver.get_attribute("a.link", "href")
-src = driver.get_attribute("img#foto", "src")
-alt = driver.get_attribute("img", "alt")
+src = driver.get_attribute("img#photo", "src")
 ```
 
 #### `get_all_texts(selector)`
 
-Retorna uma lista com o texto de **todos** os elementos que correspondem ao seletor.
+Returns a list of the inner text of **all** elements matching the selector.
 
 ```python
-itens = driver.get_all_texts("li.item")
+items = driver.get_all_texts("li.item")
 # ["Item 1", "Item 2", "Item 3"]
 ```
 
 #### `get_all_attributes(selector, attr)`
 
-Retorna uma lista com valores de atributos de múltiplos elementos.
+Returns a list of attribute values from multiple elements.
 
 ```python
 links = driver.get_all_attributes("a", "href")
 # ["https://...", "https://...", ...]
-imgs = driver.get_all_attributes("img", "src")
+images = driver.get_all_attributes("img", "src")
 ```
 
 #### `select_option(selector, value)`
 
-Seleciona uma opção em um elemento `<select>`.
+Selects an option in a `<select>` element.
 
 ```python
-driver.select_option("select#pais", "BR")
-driver.select_option("select#categoria", "tecnologia")
+driver.select_option("select#country", "BR")
+driver.select_option("select#category", "technology")
 ```
 
 ---
@@ -328,15 +328,15 @@ driver.select_option("select#categoria", "tecnologia")
 
 #### `scroll_to(x=0, y=0)`
 
-Rola a página para uma posição específica.
+Scrolls the page to a specific position.
 
 ```python
-driver.scroll_to(0, 500)  # Rola 500px para baixo
+driver.scroll_to(0, 500)  # Scroll 500px down
 ```
 
 #### `scroll_to_bottom()`
 
-Rola até o final da página.
+Scrolls to the bottom of the page.
 
 ```python
 driver.scroll_to_bottom()
@@ -344,39 +344,39 @@ driver.scroll_to_bottom()
 
 #### `scroll_to_element(selector)`
 
-Rola até que o elemento fique visível (centralizado na tela).
+Scrolls until the element is visible (centered on screen).
 
 ```python
-driver.scroll_to_element("#resultados")
+driver.scroll_to_element("#results")
 ```
 
 ---
 
-### Espera (waits)
+### Waits
 
 #### `wait_for_element(selector, timeout=10, interval=0.3)`
 
-Aguarda até que um elemento apareça no DOM. Retorna `True` se encontrou, `False` se timeout.
+Waits until an element appears in the DOM. Returns `True` if found, `False` on timeout.
 
 ```python
-if driver.wait_for_element("#carregou", timeout=15):
-    print("Elemento encontrado!")
+if driver.wait_for_element("#loaded", timeout=15):
+    print("Element found!")
 else:
-    print("Timeout — elemento não apareceu")
+    print("Timeout — element did not appear")
 ```
 
 #### `wait_for_text(text, timeout=10, interval=0.5)`
 
-Aguarda até que um texto apareça na página.
+Waits until text appears on the page.
 
 ```python
-if driver.wait_for_text("Pedido confirmado", timeout=20):
-    print("Pedido confirmado!")
+if driver.wait_for_text("Order confirmed", timeout=20):
+    print("Order confirmed!")
 ```
 
 #### `wait_for_navigation(timeout=10)`
 
-Aguarda a página terminar de carregar (`document.readyState === 'complete'`).
+Waits for the page to finish loading (`document.readyState === 'complete'`).
 
 ```python
 driver.navigate("https://site.com")
@@ -385,10 +385,10 @@ driver.wait_for_navigation(timeout=15)
 
 #### `sleep(seconds)`
 
-Pausa por N segundos. Mesmo que `time.sleep()`, mas mais legível no fluxo.
+Pauses for N seconds. Same as `time.sleep()`, but more readable in context.
 
 ```python
-driver.sleep(2)  # Aguarda 2 segundos
+driver.sleep(2)  # Wait 2 seconds
 ```
 
 ---
@@ -397,20 +397,18 @@ driver.sleep(2)  # Aguarda 2 segundos
 
 #### `screenshot(filepath="screenshot.png")`
 
-Tira um screenshot da página e salva em arquivo. Retorna o caminho do arquivo.
+Takes a page screenshot and saves it to a file. Returns the file path.
 
 ```python
-driver.screenshot("pagina.png")
-driver.screenshot(f"/sdcard/screenshots/{timestamp}.png")
+driver.screenshot("page.png")
 ```
 
 #### `screenshot_as_base64()`
 
-Retorna o screenshot como string base64 (sem salvar em arquivo).
+Returns the screenshot as a base64 string (without saving to a file).
 
 ```python
 img_b64 = driver.screenshot_as_base64()
-# útil para enviar para API, exibir em HTML, etc.
 ```
 
 ---
@@ -419,16 +417,16 @@ img_b64 = driver.screenshot_as_base64()
 
 #### `get_local_storage(key=None)`
 
-Retorna valor do `localStorage`. Se `key=None`, retorna tudo como string JSON.
+Returns a value from `localStorage`. If `key=None`, returns everything as a JSON string.
 
 ```python
-driver.get_local_storage("token")       # valor específico
-driver.get_local_storage()              # tudo
+driver.get_local_storage("token")       # specific value
+driver.get_local_storage()              # everything
 ```
 
 #### `set_local_storage(key, value)`
 
-Define um valor no `localStorage`.
+Sets a value in `localStorage`.
 
 ```python
 driver.set_local_storage("theme", "dark")
@@ -437,7 +435,7 @@ driver.set_local_storage("token", "abc123")
 
 #### `get_session_storage(key=None)`
 
-Retorna valor do `sessionStorage`. Se `key=None`, retorna tudo.
+Returns a value from `sessionStorage`. If `key=None`, returns everything.
 
 ```python
 driver.get_session_storage("session_id")
@@ -446,11 +444,11 @@ driver.get_session_storage()
 
 ---
 
-### Utilitários
+### Utilities
 
 #### `get_user_agent()`
 
-Retorna o User-Agent do navegador.
+Returns the browser's User-Agent string.
 
 ```python
 ua = driver.get_user_agent()
@@ -458,7 +456,7 @@ ua = driver.get_user_agent()
 
 #### `get_viewport_size()`
 
-Retorna o tamanho da viewport como dicionário `{width, height}`.
+Returns the viewport size as `{width, height}` dictionary.
 
 ```python
 size = driver.get_viewport_size()
@@ -467,9 +465,9 @@ print(f"{size['width']}x{size['height']}")
 
 ---
 
-## Exemplos práticos
+## Practical Examples
 
-### 1. Login + extrair cookies para API
+### 1. Login + Extract Cookies for API
 
 ```python
 from cdriv import CDriv
@@ -479,23 +477,23 @@ with CDriv() as driver:
     driver.new_session()
     driver.navigate("https://site.com/login")
 
-    # Preenche formulário
-    driver.fill("input#username", "meu_login")
-    driver.fill("input#password", "minha_senha")
+    # Fill in form
+    driver.fill("input#username", "my_user")
+    driver.fill("input#password", "my_password")
     driver.click("button[type='submit']")
 
-    # Aguarda redirecionamento
+    # Wait for redirect
     driver.wait_for_navigation()
 
-    # Pega cookies e faz requisição autenticada
+    # Get cookies and make authenticated request
     session = requests.Session()
     session.cookies.update(driver.get_cookies_dict())
 
-    dados = session.get("https://site.com/api/dados").json()
-    print(dados)
+    data = session.get("https://site.com/api/data").json()
+    print(data)
 ```
 
-### 2. Scraping de múltiplas páginas
+### 2. Multi-page Scraping
 
 ```python
 from cdriv import CDriv
@@ -503,19 +501,19 @@ from cdriv import CDriv
 with CDriv() as driver:
     driver.new_session()
 
-    for url in ["https://site.com/pag1", "https://site.com/pag2", "https://site.com/pag3"]:
+    for url in ["https://site.com/page1", "https://site.com/page2", "https://site.com/page3"]:
         driver.navigate(url)
-        driver.wait_for_element(".conteudo", timeout=10)
+        driver.wait_for_element(".content", timeout=10)
 
-        titulo = driver.get_text("h1")
-        texto = driver.get_text(".conteudo")
+        title = driver.get_text("h1")
+        text = driver.get_text(".content")
         links = driver.get_all_attributes("a", "href")
 
-        print(f"=== {titulo} ===")
-        print(f"Links: {len(links)} encontrados")
+        print(f"=== {title} ===")
+        print(f"Links: {len(links)} found")
 ```
 
-### 3. Navegação com paginação infinita (scroll)
+### 3. Infinite Scroll (Paginated Loading)
 
 ```python
 from cdriv import CDriv
@@ -529,11 +527,11 @@ with CDriv() as driver:
         driver.scroll_to_bottom()
         time.sleep(2)
 
-    posts = driver.get_all_texts("article.titulo")
-    print(f"Posts carregados: {len(posts)}")
+    posts = driver.get_all_texts("article.title")
+    print(f"Posts loaded: {len(posts)}")
 ```
 
-### 4. Screenshot para depuração
+### 4. Screenshots for Debugging
 
 ```python
 from cdriv import CDriv
@@ -543,50 +541,51 @@ with CDriv() as driver:
 
     try:
         driver.navigate("https://site.com")
-        driver.wait_for_element("#erro", timeout=5)
-        print("Elemento de erro encontrado!")
+        driver.wait_for_element("#error", timeout=5)
+        print("Error element found!")
     except:
-        driver.screenshot("erro.png")
-        print("Screenshot salvo como erro.png")
+        driver.screenshot("error.png")
+        print("Screenshot saved as error.png")
 ```
 
 ---
 
-## Solução de problemas
+## Troubleshooting
 
-### ChromeDriver não inicia
+### ChromeDriver Won't Start
 
 ```bash
-# Verifique se os binários estão instalados
+# Check if binaries are installed
 which chromedriver
 which chromium-browser
 
-# Verifique a versão
+# Check versions
 chromedriver --version
 chromium-browser --version
 ```
 
-Se não estiverem instalados:
+If not installed:
 ```bash
 pkg install chromium-browser chromedriver
 ```
 
-### Sessão não cria / navegador não abre
+### Session Won't Create / Browser Won't Open
 
-No Termux, é essencial que os pacotes `chromium-browser` e `chromedriver` sejam da mesma versão. Atualize ambos:
+On Termux, `chromium-browser` and `chromedriver` must be the **same version**. Upgrade both:
 
 ```bash
 pkg upgrade chromium-browser chromedriver
 ```
 
-### Porta ocupada
+### Port Already in Use
 
-Se a porta 9515 estiver ocupada, use uma porta diferente:
+If port 9515 is occupied, use a different port:
 
 ```python
 driver = CDriv(port=9516)
 ```
 
-### Erro de permissão (sandbox)
+### Sandbox Permission Errors
 
-O `CDriv` já inicia com `--no-sandbox` por padrão, que é necessário no Termux e em containers. Se ainda assim tiver erro, confirme que o chromium foi instalado corretamente.
+`CDriv` starts with `--no-sandbox` by default, which is required on Termux
+and containers. If you still get errors, confirm chromium was installed correctly.

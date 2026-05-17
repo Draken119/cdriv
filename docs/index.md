@@ -1,71 +1,71 @@
 # cdriv
 
-**Controle o Chromium via ChromeDriver no Termux (Android aarch64).**
+**Control Chromium via ChromeDriver on Termux (Android aarch64).**
 
-Alternativa direta ao **Playwright** e **Selenium** — que **não funcionam** em Android/aarch64. Esta lib usa o protocolo WebDriver via HTTP para controlar o Chromium em modo headless, especificamente desenvolvida para rodar no Termux.
+A direct alternative to **Playwright** and **Selenium** — which **do not work** on Android aarch64. This library communicates with ChromeDriver through the HTTP WebDriver protocol to control Chromium in headless mode, built specifically for Termux.
 
 <div class="grid cards" markdown>
 
--   :material-rocket-launch:{ .lg .middle } **Leve e rápido**
+-   :material-rocket-launch:{ .lg .middle } **Lightweight & Fast**
 
     ---
 
-    Depende apenas de `requests`. Sem frameworks pesados, sem contêineres, sem complexidade desnecessária.
+    Single dependency: `requests`. No heavy frameworks, no containers, no unnecessary complexity.
 
--   :material-cellphone:{ .lg .middle } **Feito pro Termux**
-
-    ---
-
-    Funciona nativamente em Android aarch64. Instala com `pkg install` e já era.
-
--   :material-cookie:{ .lg .middle } **Cookies prontos pra API**
+-   :material-cellphone:{ .lg .middle } **Built for Termux**
 
     ---
 
-    Extrai cookies como dicionário — usa direto com `requests.Session()`.
+    Runs natively on Android aarch64. Install with `pkg install` and you're ready.
 
--   :material-language-python:{ .lg .middle } **API intuitiva**
+-   :material-cookie:{ .lg .middle } **API-ready Cookies**
 
     ---
 
-    Métodos diretos e descritivos. Em português. Curva de aprendizado mínima.
+    Extract cookies as a dictionary — use directly with `requests.Session()`.
+
+-   :material-language-python:{ .lg .middle } **Intuitive API**
+
+    ---
+
+    Clean, descriptive methods. Minimal learning curve.
 
 </div>
 
-## Instalação rápida
+## Quick Install
 
 ```bash
 pip install cdriv
 ```
 
-Veja o [Guia de Instalação](installation.md) completo.
+See the [Installation Guide](installation.md) for detailed instructions.
 
-## Primeiro exemplo
+## Quick Start
 
 ```python
 from cdriv import CDriv
 
 with CDriv() as driver:
     driver.new_session()
-    driver.navigate("https://exemplo.com")
+    driver.navigate("https://example.com")
 
     html = driver.get_page_source()
     cookies = driver.get_cookies_dict()
-    titulo = driver.get_title()
+    title = driver.get_title()
 
-    print(titulo)
+    print(title)
 ```
 
-## Documentação
+## Documentation
 
-| Seção | Descrição |
-|-------|-----------|
-| [Instalação](installation.md) | Instalação da lib e dependências |
-| [Primeiros Passos](usage/quickstart.md) | Comece por aqui |
-| [Exemplos Práticos](examples/login.md) | Exemplos reais de uso |
-| [API Reference](api/cdriv.md) | Documentação completa da API |
-| [Solução de Problemas](troubleshooting.md) | Problemas comuns e soluções |
+| Section | Description |
+|---------|-------------|
+| [Installation](installation.md) | Library and dependency installation |
+| [Quickstart](usage/quickstart.md) | Start here |
+| [Practical Examples](examples/login.md) | Real-world use cases |
+| [API Reference](api/cdriv.md) | Complete API documentation |
+| [Troubleshooting](troubleshooting.md) | Common issues and solutions |
 
-## Licença
+## License
 
 MIT

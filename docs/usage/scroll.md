@@ -1,20 +1,20 @@
 # Scroll
 
-Métodos para rolar a página.
+Methods for scrolling the page.
 
 ## `scroll_to(x=0, y=0)`
 
-Rola a página para uma posição específica.
+Scrolls the page to a specific position.
 
 ```python
-driver.scroll_to(0, 500)   # Rola 500px para baixo
-driver.scroll_to(0, 0)     # Volta ao topo
-driver.scroll_to(200, 300) # 200px direita, 300px baixo
+driver.scroll_to(0, 500)   # Scroll 500px down
+driver.scroll_to(0, 0)     # Back to top
+driver.scroll_to(200, 300) # 200px right, 300px down
 ```
 
 ## `scroll_to_bottom()`
 
-Rola até o final da página.
+Scrolls to the bottom of the page.
 
 ```python
 driver.scroll_to_bottom()
@@ -22,15 +22,15 @@ driver.scroll_to_bottom()
 
 ## `scroll_to_element(selector)`
 
-Rola até que o elemento fique visível (centralizado na tela).
+Scrolls until the element is visible (centered on screen).
 
 ```python
-driver.scroll_to_element("#resultados")
+driver.scroll_to_element("#results")
 driver.scroll_to_element(".footer")
-driver.scroll_to_element("a#ultimo-link")
+driver.scroll_to_element("a#last-link")
 ```
 
-## Exemplo: paginação infinita
+## Example: Infinite Scroll
 
 ```python
 from cdriv import CDriv
@@ -44,6 +44,6 @@ with CDriv() as driver:
         driver.scroll_to_bottom()
         time.sleep(2)
 
-    posts = driver.get_all_texts("article.titulo")
-    print(f"Posts carregados: {len(posts)}")
+    posts = driver.get_all_texts("article.title")
+    print(f"Posts loaded: {len(posts)}")
 ```

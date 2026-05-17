@@ -1,17 +1,17 @@
 # Screenshot
 
-Capture screenshots da página atual.
+Capture screenshots of the current page.
 
 ## `screenshot(filepath="screenshot.png")`
 
-Tira um screenshot da página e salva em arquivo. Retorna o caminho do arquivo.
+Takes a screenshot of the page and saves it to a file. Returns the file path.
 
 ```python
-driver.screenshot("pagina.png")
+driver.screenshot("page.png")
 driver.screenshot(f"/sdcard/screenshots/{timestamp}.png")
 ```
 
-### Uso para depuração
+### Debugging with Screenshots
 
 ```python
 from cdriv import CDriv
@@ -21,24 +21,24 @@ with CDriv() as driver:
 
     try:
         driver.navigate("https://site.com")
-        driver.wait_for_element("#erro", timeout=5)
-        print("Elemento de erro encontrado!")
+        driver.wait_for_element("#error", timeout=5)
+        print("Error element found!")
     except:
-        driver.screenshot("erro.png")
-        print("Screenshot salvo como erro.png")
+        driver.screenshot("error.png")
+        print("Screenshot saved as error.png")
 ```
 
 ## `screenshot_as_base64()`
 
-Retorna o screenshot como string base64 (sem salvar em arquivo).
+Returns the screenshot as a base64 string (without saving to a file).
 
 ```python
 img_b64 = driver.screenshot_as_base64()
 
-# Enviar para API
+# Send to API
 import requests
-requests.post("https://api.exemplo.com/upload", json={"image": img_b64})
+requests.post("https://api.example.com/upload", json={"image": img_b64})
 
-# Exibir em HTML
+# Display in HTML
 html = f'<img src="data:image/png;base64,{img_b64}" />'
 ```

@@ -1,14 +1,14 @@
-# Scraping de Múltiplas Páginas
+# Multi-page Scraping
 
-Exemplo de scraping de várias páginas sequencialmente.
+Example of scraping multiple pages sequentially.
 
 ```python
 from cdriv import CDriv
 
 urls = [
-    "https://site.com/pag1",
-    "https://site.com/pag2",
-    "https://site.com/pag3",
+    "https://site.com/page1",
+    "https://site.com/page2",
+    "https://site.com/page3",
 ]
 
 with CDriv() as driver:
@@ -16,14 +16,14 @@ with CDriv() as driver:
 
     for url in urls:
         driver.navigate(url)
-        driver.wait_for_element(".conteudo", timeout=10)
+        driver.wait_for_element(".content", timeout=10)
 
-        titulo = driver.get_text("h1")
-        texto = driver.get_text(".conteudo")
+        title = driver.get_text("h1")
+        text = driver.get_text(".content")
         links = driver.get_all_attributes("a", "href")
 
-        print(f"=== {titulo} ===")
-        print(f"Texto: {texto[:100]}...")
-        print(f"Links: {len(links)} encontrados")
+        print(f"=== {title} ===")
+        print(f"Text: {text[:100]}...")
+        print(f"Links: {len(links)} found")
         print()
 ```

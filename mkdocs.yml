@@ -1,5 +1,5 @@
 site_name: cdriv
-site_description: Controle o Chromium via ChromeDriver no Termux — alternativa ao Playwright/Selenium para Android aarch64
+site_description: Control Chromium via ChromeDriver on Termux — Playwright/Selenium alternative for Android aarch64
 site_url: https://draken119.github.io/cdriv/
 repo_url: https://github.com/Draken119/cdriv
 repo_name: Draken119/cdriv
@@ -18,13 +18,13 @@ theme:
       accent: cyan
       toggle:
         icon: material/weather-night
-        name: Modo claro
+        name: Light mode
     - scheme: default
       primary: teal
       accent: cyan
       toggle:
         icon: material/weather-sunny
-        name: Modo escuro
+        name: Dark mode
   features:
     - navigation.instant
     - navigation.instant.progress
@@ -45,32 +45,32 @@ theme:
     - toc.follow
 
 nav:
-  - Início: index.md
-  - Guia de Instalação:
-    - Instalação: installation.md
-    - Pré-requisitos: prerequisites.md
-  - Guia de Uso:
-    - Primeiros Passos: usage/quickstart.md
-    - Navegação: usage/navigation.md
-    - Extração de Dados: usage/extraction.md
+  - Home: index.md
+  - Installation:
+    - Installation: installation.md
+    - Prerequisites: prerequisites.md
+  - Usage Guide:
+    - Quickstart: usage/quickstart.md
+    - Navigation: usage/navigation.md
+    - Data Extraction: usage/extraction.md
     - Cookies: usage/cookies.md
-    - Interação com Elementos: usage/interaction.md
+    - Element Interaction: usage/interaction.md
     - JavaScript: usage/javascript.md
     - Screenshot: usage/screenshot.md
     - Scroll: usage/scroll.md
     - Waits: usage/waits.md
     - Storage: usage/storage.md
-    - Utilitários: usage/utilities.md
-  - Exemplos Práticos:
+    - Utilities: usage/utilities.md
+  - Practical Examples:
     - Login + API: examples/login.md
-    - Scraping Múltiplas Páginas: examples/scraping.md
-    - Paginação Infinita: examples/infinite-scroll.md
-    - Monitoramento de Preços: examples/price-monitor.md
-    - Automação de Formulário: examples/form.md
+    - Multi-page Scraping: examples/scraping.md
+    - Infinite Scroll: examples/infinite-scroll.md
+    - Price Monitoring: examples/price-monitor.md
+    - Form Automation: examples/form.md
   - API Reference:
     - CDriv: api/cdriv.md
-  - Solução de Problemas: troubleshooting.md
-  - Sobre: about.md
+  - Troubleshooting: troubleshooting.md
+  - About: about.md
 
 extra:
   social:

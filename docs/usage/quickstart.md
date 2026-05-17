@@ -1,26 +1,26 @@
-# Primeiros Passos
+# Quickstart
 
-## Context Manager (recomendado)
+## Context Manager (recommended)
 
-A forma mais segura e prática de usar o `CDriv`:
+The safest and most convenient way to use `CDriv`:
 
 ```python
 from cdriv import CDriv
 
 with CDriv() as driver:
     driver.new_session()
-    driver.navigate("https://exemplo.com")
+    driver.navigate("https://example.com")
 
     html = driver.get_page_source()
     print(driver.get_title())
 ```
 
-O `with` garante que o ChromeDriver será iniciado automaticamente e finalizado
-corretamente, mesmo em caso de erro.
+The `with` statement guarantees the ChromeDriver starts and stops correctly,
+even when exceptions occur.
 
-## Gerenciamento manual
+## Manual Management
 
-Se prefere controle total sobre o ciclo de vida:
+For full control over the lifecycle:
 
 ```python
 from cdriv import CDriv
@@ -28,23 +28,23 @@ from cdriv import CDriv
 driver = CDriv()
 driver.start()
 driver.new_session()
-driver.navigate("https://exemplo.com")
+driver.navigate("https://example.com")
 
-# ... seu código aqui ...
+# ... your code here ...
 
 driver.close()
 driver.stop()
 ```
 
-## Configuração básica
+## Configuration
 
-### Porta personalizada
+### Custom Port
 
 ```python
 driver = CDriv(port=9516)
 ```
 
-### Caminhos manuais
+### Custom Binary Paths
 
 ```python
 driver = CDriv(
@@ -53,23 +53,23 @@ driver = CDriv(
 )
 ```
 
-## Estrutura típica de um script
+## Typical Script Structure
 
-1. Criar instância do `CDriv`
-2. Iniciar sessão com `new_session()`
-3. Navegar para a URL desejada
-4. Interagir com a página
-5. Extrair dados necessários
-6. Encerrar a sessão
+1. Create a `CDriv` instance
+2. Start a session with `new_session()`
+3. Navigate to the target URL
+4. Interact with the page
+5. Extract required data
+6. Close the session
 
 ```python
 from cdriv import CDriv
 
-with CDriv() as driver:       # 1. Cria e inicia
-    driver.new_session()       # 2. Abre o navegador
-    driver.navigate("...")     # 3. Navega
-    driver.fill("#campo", "x") # 4. Interage
-    dados = driver.get_text("#resultado")  # 5. Extrai
-    print(dados)
-# 6. Encerra automaticamente
+with CDriv() as driver:       # 1. Create & start
+    driver.new_session()       # 2. Open browser
+    driver.navigate("...")     # 3. Navigate
+    driver.fill("#field", "x") # 4. Interact
+    data = driver.get_text("#result")  # 5. Extract
+    print(data)
+# 6. Auto-cleanup
 ```

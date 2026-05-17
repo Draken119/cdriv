@@ -1,52 +1,52 @@
-# Navegação
+# Navigation
 
-Métodos para navegar entre páginas da web.
+Methods for navigating between web pages.
 
 ## `navigate(url)`
 
-Navega para uma URL. Aguarda o carregamento completo da página.
+Navigates to a URL. Waits for the page to load completely.
 
 ```python
 driver.navigate("https://site.com")
-driver.navigate("https://site.com/produto/123")
+driver.navigate("https://site.com/product/123")
 ```
 
 ## `get_current_url()`
 
-Retorna a URL atual da página.
+Returns the current page URL.
 
 ```python
 url = driver.get_current_url()
-print(f"Você está em: {url}")
+print(f"You are at: {url}")
 ```
 
 ## `back()`
 
-Volta para a página anterior (como o botão "voltar" do navegador).
+Goes back to the previous page (like the browser's back button).
 
 ```python
-driver.navigate("https://site.com/pagina1")
-driver.navigate("https://site.com/pagina2")
-driver.back()  # Volta para pagina1
+driver.navigate("https://site.com/page1")
+driver.navigate("https://site.com/page2")
+driver.back()  # Returns to page1
 ```
 
 ## `forward()`
 
-Avança para a próxima página (como o botão "avançar").
+Goes forward to the next page (like the browser's forward button).
 
 ```python
-driver.forward()  # Volta para pagina2
+driver.forward()  # Returns to page2
 ```
 
 ## `refresh()`
 
-Recarrega a página atual.
+Reloads the current page.
 
 ```python
 driver.refresh()
 ```
 
-## Exemplo completo
+## Complete Example
 
 ```python
 from cdriv import CDriv
@@ -57,9 +57,9 @@ with CDriv() as driver:
     driver.navigate("https://site.com/login")
     print(driver.get_current_url())
 
-    # Simula navegação
+    # Simulate navigation flow
     driver.navigate("https://site.com/dashboard")
-    driver.back()      # Volta pro login
-    driver.forward()   # Volta pro dashboard
-    driver.refresh()   # Recarrega o dashboard
+    driver.back()      # Back to login
+    driver.forward()   # Forward to dashboard
+    driver.refresh()   # Reload dashboard
 ```

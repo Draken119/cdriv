@@ -1,8 +1,8 @@
-# Utilitários
+# Utilities
 
 ## `get_user_agent()`
 
-Retorna o User-Agent do navegador.
+Returns the browser's User-Agent string.
 
 ```python
 ua = driver.get_user_agent()
@@ -11,7 +11,7 @@ print(f"User-Agent: {ua}")
 
 ## `get_viewport_size()`
 
-Retorna o tamanho da viewport como dicionário `{width, height}`.
+Returns the viewport size as a `{width, height}` dictionary.
 
 ```python
 size = driver.get_viewport_size()
