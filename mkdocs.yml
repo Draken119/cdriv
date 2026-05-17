@@ -9,6 +9,7 @@ copyright: Copyright &copy; 2026 Draken119 — MIT License
 
 theme:
   name: material
+  custom_dir: overrides
   icon:
     logo: material/web
     repo: fontawesome/brands/github
@@ -18,16 +19,16 @@ theme:
       accent: cyan
       toggle:
         icon: material/weather-night
-        name: Light mode
+        name: Dark mode
     - scheme: default
       primary: teal
       accent: cyan
       toggle:
         icon: material/weather-sunny
-        name: Dark mode
+        name: Light mode
   features:
-    - navigation.instant
-    - navigation.instant.progress
+    # - navigation.instant  # incompatible with i18n language switcher
+    # - navigation.instant.progress
     - navigation.tracking
     - navigation.tabs
     - navigation.tabs.sticky
@@ -43,6 +44,54 @@ theme:
     - content.tabs.link
     - content.action.edit
     - toc.follow
+  language: en
+
+plugins:
+  - search
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          paths: [src]
+          options:
+            show_source: false
+            show_root_heading: true
+            show_category_heading: true
+            docstring_style: google
+  - i18n:
+      docs_structure: folder
+      languages:
+        - locale: en
+          name: English
+          default: true
+          build: true
+          nav_translations:
+            site_name: cdriv
+        - locale: es
+          name: Español
+          build: true
+          nav_translations:
+            site_name: cdriv
+        - locale: pt
+          name: Português
+          build: true
+          nav_translations:
+            site_name: cdriv
+        - locale: ru
+          name: Русский
+          build: true
+          nav_translations:
+            site_name: cdriv
+        - locale: zh
+          name: 中文
+          build: true
+          nav_translations:
+            site_name: cdriv
+        - locale: ja
+          name: 日本語
+          build: true
+          nav_translations:
+            site_name: cdriv
 
 nav:
   - Home: index.md
@@ -79,6 +128,25 @@ extra:
     - icon: fontawesome/brands/python
       link: https://pypi.org/project/cdriv/
   generator: false
+  alternate:
+    - name: 🇺🇸 English
+      link: /en/
+      lang: en
+    - name: 🇪🇸 Español
+      link: /es/
+      lang: es
+    - name: 🇧🇷 Português
+      link: /pt/
+      lang: pt
+    - name: 🇷🇺 Русский
+      link: /ru/
+      lang: ru
+    - name: 🇨🇳 中文
+      link: /zh/
+      lang: zh
+    - name: 🇯🇵 日本語
+      link: /ja/
+      lang: ja
 
 markdown_extensions:
   - admonition
@@ -102,16 +170,3 @@ markdown_extensions:
   - toc:
       permalink: true
       toc_depth: 3
-
-plugins:
-  - search
-  - mkdocstrings:
-      default_handler: python
-      handlers:
-        python:
-          paths: [src]
-          options:
-            show_source: false
-            show_root_heading: true
-            show_category_heading: true
-            docstring_style: google
