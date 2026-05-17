@@ -4,7 +4,7 @@
 
 A direct alternative to **Playwright** and **Selenium** — which **do not work** on Android aarch64. This library communicates with ChromeDriver through the HTTP WebDriver protocol to control Chromium in headless mode, built specifically for Termux.
 
-<div class="grid cards" markdown>
+<div class="grid cards" markdown="1">
 
 -   :material-rocket-launch:{ .lg .middle } **Lightweight & Fast**
 

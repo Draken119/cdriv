@@ -4,31 +4,31 @@
 
 这是 **Playwright** 和 **Selenium** 的直接替代方案——它们在 Android aarch64 上**无法运行**。该库通过 HTTP WebDriver 协议与 ChromeDriver 通信，以无头模式控制 Chromium，专为 Termux 构建。
 
-<div class="grid cards" markdown>
+<div class="grid cards" markdown="1">
 
 -   :material-rocket-launch:{ .lg .middle } **轻量且快速**
 
-    ---
+---
 
-    单一依赖：`requests`。没有沉重框架，没有容器，没有不必要的复杂性。
+单一依赖：`requests`。没有沉重框架，没有容器，没有不必要的复杂性。
 
 -   :material-cellphone:{ .lg .middle } **专为 Termux 构建**
 
-    ---
+---
 
-    在 Android aarch64 上原生运行。使用 `pkg install` 安装即可。
+在 Android aarch64 上原生运行。使用 `pkg install` 安装即可。
 
 -   :material-cookie:{ .lg .middle } **API 就绪的 Cookie**
 
-    ---
+---
 
-    以字典形式提取 Cookie —— 可直接与 `requests.Session()` 一起使用。
+以字典形式提取 Cookie —— 可直接与 `requests.Session()` 一起使用。
 
 -   :material-language-python:{ .lg .middle } **直观的 API**
 
-    ---
+---
 
-    清晰、描述性强的方法。学习曲线极小。
+清晰、描述性强的方法。学习曲线极小。
 
 </div>
 
