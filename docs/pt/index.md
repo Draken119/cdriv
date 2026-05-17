@@ -5,26 +5,31 @@
 Uma alternativa direta ao **Playwright** e **Selenium** — que **não funcionam** no Android aarch64. Esta biblioteca se comunica com o ChromeDriver através do protocolo HTTP WebDriver para controlar o Chromium em modo headless, desenvolvida especificamente para o Termux.
 
 <div class="grid cards" markdown="1">
+
 -   :material-rocket-launch:{ .lg .middle } **Leve e Rápido**
 
----
+    ---
 
-Dependência única: `requests`. Sem frameworks pesados, sem contêineres, sem complexidade desnecessária.
+    Dependência única: `requests`. Sem frameworks pesados, sem contêineres, sem complexidade desnecessária.
+
 -   :material-cellphone:{ .lg .middle } **Feito para o Termux**
 
----
+    ---
 
-Roda nativamente no Android aarch64. Instale com `pkg install` e pronto.
+    Roda nativamente no Android aarch64. Instale com `pkg install` e pronto.
+
 -   :material-cookie:{ .lg .middle } **Cookies Prontos para API**
 
----
+    ---
 
-Extraia cookies como um dicionário — use diretamente com `requests.Session()`.
+    Extraia cookies como um dicionário — use diretamente com `requests.Session()`.
+
 -   :material-language-python:{ .lg .middle } **API Intuitiva**
 
----
+    ---
 
-Métodos limpos e descritivos. Curva de aprendizado mínima.
+    Métodos limpos e descritivos. Curva de aprendizado mínima.
+
 </div>
 
 ## Instalação Rápida

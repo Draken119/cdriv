@@ -129,23 +129,23 @@ extra:
       link: https://pypi.org/project/cdriv/
   generator: false
   alternate:
-    - name: 🇺🇸 English
-      link: /en/
+    - name: English
+      link: /cdriv/en/
       lang: en
-    - name: 🇪🇸 Español
-      link: /es/
+    - name: Español
+      link: /cdriv/es/
       lang: es
-    - name: 🇧🇷 Português
-      link: /pt/
+    - name: Português
+      link: /cdriv/pt/
       lang: pt
-    - name: 🇷🇺 Русский
-      link: /ru/
+    - name: Русский
+      link: /cdriv/ru/
       lang: ru
-    - name: 🇨🇳 中文
-      link: /zh/
+    - name: 中文
+      link: /cdriv/zh/
       lang: zh
-    - name: 🇯🇵 日本語
-      link: /ja/
+    - name: 日本語
+      link: /cdriv/ja/
       lang: ja
 
 markdown_extensions:

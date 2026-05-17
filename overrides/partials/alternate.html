@@ -1,19 +1,101 @@
+<style>
+.md-lang-dropdown {
+  position: relative;
+  display: inline-block;
+}
+.md-lang-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.15s;
+  color: var(--md-typeset-color);
+}
+.md-lang-trigger:hover {
+  background: var(--md-default-fg-color--lighter);
+}
+.md-lang-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 4px;
+  min-width: 180px;
+  background: var(--md-default-bg-color);
+  border-radius: 8px;
+  box-shadow: var(--md-shadow-z2);
+  padding: 6px 0;
+  display: none;
+  z-index: 100;
+}
+.md-lang-menu.open {
+  display: block;
+}
+.md-lang-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 16px;
+  text-decoration: none;
+  color: var(--md-typeset-color);
+  font-size: 0.85rem;
+  transition: background 0.12s;
+}
+.md-lang-item:hover {
+  background: var(--md-default-fg-color--lightest);
+}
+.md-lang-item--active {
+  background: var(--md-primary-fg-color--transparent);
+  font-weight: 700;
+}
+.md-lang-flag {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  line-height: 1;
+}
+</style>
+
 <div class="md-header__option">
-  <div class="md-select">
-    {% set icon = config.theme.icon.alternate or "material/translate" %}
-    <button class="md-header__button md-icon" aria-label="{{ lang.t('select.language') }}">
-      {% include ".icons/" ~ icon ~ ".svg" %}
+  <div class="md-lang-dropdown">
+    <button class="md-lang-trigger md-header__button md-icon" aria-label="Select language" onclick="this.nextElementSibling.classList.toggle('open')">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12.87 15.07l-2.54-2.51.03-.03A17.52 17.52 0 0 0 14.07 6H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z" fill="currentColor"/></svg>
     </button>
-    <div class="md-select__inner">
-      <ul class="md-select__list">
-        {% for alt in config.extra.alternate %}
-          <li class="md-select__item">
-            <a href="{{ alt.link | url }}" hreflang="{{ alt.lang }}" class="md-select__link">
-              {{ alt.name }}
-            </a>
-          </li>
-        {% endfor %}
-      </ul>
+    <div class="md-lang-menu" onclick="event.stopPropagation()">
+      {% set flags = {
+        "en": "🇺🇸",
+        "es": "🇪🇸",
+        "pt": "🇧🇷",
+        "ru": "🇷🇺",
+        "zh": "🇨🇳",
+        "ja": "🇯🇵"
+      } %}
+      {% for alt in config.extra.alternate %}
+        <a href="{{ alt.link | url }}" hreflang="{{ alt.lang }}"
+           class="md-lang-item {% if alt.lang == config.theme.language %}md-lang-item--active{% endif %}"
+           title="{{ alt.name }}">
+          <span class="md-lang-flag">{{ flags.get(alt.lang, "") }}</span>
+          <span>{{ alt.name }}</span>
+        </a>
+      {% endfor %}
     </div>
   </div>
 </div>
+
+<script>
+document.addEventListener('click', function(e) {
+  document.querySelectorAll('.md-lang-menu.open').forEach(function(menu) {
+    if (!menu.parentNode.contains(e.target)) {
+      menu.classList.remove('open');
+    }
+  });
+});
+</script>
