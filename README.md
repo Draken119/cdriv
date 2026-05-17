@@ -1,5 +1,9 @@
 # cdriv
 
+[![PyPI version](https://img.shields.io/pypi/v/cdriv)](https://pypi.org/project/cdriv/)
+[![License](https://img.shields.io/pypi/l/cdriv)](LICENSE)
+[![Python](https://img.shields.io/pypi/pyversions/cdriv)](https://pypi.org/project/cdriv/)
+
 **Controle o Chromium via ChromeDriver no Termux (Android aarch64).**
 
 Alternativa direta ao **Playwright** e **Selenium** — que **não funcionam** em Android/aarch64. Esta lib usa o protocolo WebDriver via HTTP para controlar o Chromium em modo headless, especificamente desenvolvida para rodar no Termux.
