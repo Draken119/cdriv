@@ -1,0 +1,117 @@
+site_name: cdriv
+site_description: Controle o Chromium via ChromeDriver no Termux — alternativa ao Playwright/Selenium para Android aarch64
+site_url: https://draken119.github.io/cdriv/
+repo_url: https://github.com/Draken119/cdriv
+repo_name: Draken119/cdriv
+edit_uri: blob/master/docs/
+site_author: Draken119
+copyright: Copyright &copy; 2026 Draken119 — MIT License
+
+theme:
+  name: material
+  icon:
+    logo: material/web
+    repo: fontawesome/brands/github
+  palette:
+    - scheme: slate
+      primary: teal
+      accent: cyan
+      toggle:
+        icon: material/weather-night
+        name: Modo claro
+    - scheme: default
+      primary: teal
+      accent: cyan
+      toggle:
+        icon: material/weather-sunny
+        name: Modo escuro
+  features:
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - navigation.footer
+    - search.suggest
+    - search.highlight
+    - search.share
+    - content.code.copy
+    - content.code.annotate
+    - content.tabs.link
+    - content.action.edit
+    - toc.follow
+
+nav:
+  - Início: index.md
+  - Guia de Instalação:
+    - Instalação: installation.md
+    - Pré-requisitos: prerequisites.md
+  - Guia de Uso:
+    - Primeiros Passos: usage/quickstart.md
+    - Navegação: usage/navigation.md
+    - Extração de Dados: usage/extraction.md
+    - Cookies: usage/cookies.md
+    - Interação com Elementos: usage/interaction.md
+    - JavaScript: usage/javascript.md
+    - Screenshot: usage/screenshot.md
+    - Scroll: usage/scroll.md
+    - Waits: usage/waits.md
+    - Storage: usage/storage.md
+    - Utilitários: usage/utilities.md
+  - Exemplos Práticos:
+    - Login + API: examples/login.md
+    - Scraping Múltiplas Páginas: examples/scraping.md
+    - Paginação Infinita: examples/infinite-scroll.md
+    - Monitoramento de Preços: examples/price-monitor.md
+    - Automação de Formulário: examples/form.md
+  - API Reference:
+    - CDriv: api/cdriv.md
+  - Solução de Problemas: troubleshooting.md
+  - Sobre: about.md
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/Draken119/cdriv
+    - icon: fontawesome/brands/python
+      link: https://pypi.org/project/cdriv/
+  generator: false
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.snippets
+  - pymdownx.keys
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.critic
+  - toc:
+      permalink: true
+      toc_depth: 3
+
+plugins:
+  - search
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          paths: [src]
+          options:
+            show_source: false
+            show_root_heading: true
+            show_category_heading: true
+            docstring_style: google
