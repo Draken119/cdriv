@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cdriv"
+version = "1.0.2"
+description = "Controle o Chromium via ChromeDriver no Termux. Alternativa ao Playwright/Selenium que não funcionam em android/aarch64."
+readme = "README.md"
+requires-python = ">=3.8"
+license = "MIT"
+keywords = ["termux", "chromedriver", "scraper", "android", "webdriver", "headless", "aarch64"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: POSIX :: Linux",
+    "Intended Audience :: Developers",
+    "Topic :: Internet :: WWW/HTTP :: Browsers",
+    "Topic :: Software Development :: Testing :: Web Automation",
+]
+dependencies = [
+    "requests",
+]
+authors = [
+    {name = "Draken119"},
+]
+
+[project.urls]
+Homepage = "https://github.com/Draken119/cdriv"
+Repository = "https://github.com/Draken119/cdriv"
+"Bug Tracker" = "https://github.com/Draken119/cdriv/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
